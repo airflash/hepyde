@@ -1,1 +1,1 @@
-web: gunicorn main:application
+web: gunicorn just_code
