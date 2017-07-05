@@ -6,3 +6,5 @@ def application(environ, start_response):
     start_response(status, response_headers)
     return [bytes(output, 'utf-8')]
     
+    # можно использовать [data.encode('utf-8')]. 
+    # также The specs says that you can return an itterator here. So either ["OK"] or yield "OK" :)
