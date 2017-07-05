@@ -1,2 +1,2 @@
-print ('hello')
-print ('heroku')
+def app():
+	print('hello thruogh gunicorn')
