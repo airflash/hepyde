@@ -1,1 +1,1 @@
-web: gunicorn just_code
+web: gunicorn just_code.py
