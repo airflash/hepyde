@@ -5,8 +5,8 @@ def application(environ, start_response):
     output = 'Hello World!\n\n'
     
     for keys,values in environ.items():
-    	output += keys + '\n'
-    	output += values + '\n'
+    	output += str(keys) + '\n'
+    	output += str(values) + '\n'
 
     response_headers = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]
