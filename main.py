@@ -4,9 +4,11 @@ def application(environ, start_response):
     status = '200 OK'
     output = 'Hello World!\n\n'
     
-    for keys,values in environ.items():
-    	output += str(keys) + '\n'
-    	output += str(values) + '\n'
+    # for keys,values in environ.items():
+    # 	output += str(keys) + '\n'
+    # 	output += str(values) + '\n'
+
+    output += json.encode(environ)
 
     response_headers = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]
