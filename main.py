@@ -14,7 +14,7 @@ def getDefaultOutput():
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def login(query):
-	params = parse.parse_qs(query)
+	params = dict(parse.parse_qs(query))
 
 	connectToDB()
 	
