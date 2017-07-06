@@ -18,8 +18,8 @@ def application(environ, start_response):
     # for keys,values in environ.items():
     # 	output += str(keys) + '\n'
     # 	output += str(values) + '\n'
-
-	connectToDB()
+    
+    connectToDB()
 
     #output += json.dumps(environ)
 
