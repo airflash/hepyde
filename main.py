@@ -33,7 +33,7 @@ def application(environ, start_response):
 	
 	if (path == '/login'):
 		output = login()
-	else if (path == '/spin')
+	elif (path == '/spin')
 		output = spin()   
 	else 
 		output = getDefaultOutput()
