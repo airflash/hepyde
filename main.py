@@ -9,16 +9,23 @@ def connectToDB():
 
 	conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host=url.hostname,port=url.port)
 
+def getOutput():
+	reply = {}
+	reply.pgURL = os.environ["DATABASE_URL"]
+	reply.status = 'ok'
+	return json.dumps(reply)
+
+    
+
 def application(environ, start_response):
     status = '200 OK'
-    output = 'Hello World!\n\n'
-
-    output += os.environ["DATABASE_URL"]
+    
+    output = getOutput()
     
     # for keys,values in environ.items():
     # 	output += str(keys) + '\n'
     # 	output += str(values) + '\n'
-    
+
     connectToDB()
 
     #output += json.dumps(environ)
