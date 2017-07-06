@@ -16,6 +16,12 @@ def getDefaultOutput():
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def login():
+
+	connectToDB()
+
+	#TODO: если юзер есть в базе - вернуть токен сессии
+	#TODO: если нет в базе - записать туда его
+	
 	reply = {}
 	reply['status'] = 'ok'
 	reply['method'] = 'login'
@@ -27,24 +33,25 @@ def spin():
 	reply['method'] = 'spin'
 	return json.dumps(reply, sort_keys=True, indent=4)
 
+def route(environ):
+	path = environ['PATH_INFO']
+
+	if (path == '/login'):
+		return login()
+	elif (path == '/spin'):
+		return spin()   
+	else :
+		return getDefaultOutput()
+
 def application(environ, start_response):
 	status = '200 OK'
-	path = environ['PATH_INFO']
-	
-	if (path == '/login'):
-		output = login()
-	elif (path == '/spin'):
-		output = spin()   
-	else :
-		output = getDefaultOutput()
+		
+	output = route(environ)	
 
-	# connectToDB()
-
-	#output += json.dumps(environ)
+	for keys,values in environ.items():
+		output += str(keys) + '\n'
+		output += str(values) + '\n'
 
 	response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
 	start_response(status, response_headers)
 	return [bytes(output, 'utf-8')]
-
-	# можно использовать [data.encode('utf-8')]. 
-	# также The specs says that you can return an itterator here. So either ["OK"] or yield "OK" :)
