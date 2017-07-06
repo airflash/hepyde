@@ -19,7 +19,6 @@ def getOutput():
 
 def application(environ, start_response):
     status = '200 OK'
-    
     output = getOutput()
     
     # for keys,values in environ.items():
