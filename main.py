@@ -15,15 +15,15 @@ def getOutput():
 	reply['status'] = 'ok'
 	return json.dumps(reply)
 
-    
-
 def application(environ, start_response):
     status = '200 OK'
     output = getOutput()
+
+    output += "\n"
     
-    # for keys,values in environ.items():
-    # 	output += str(keys) + '\n'
-    # 	output += str(values) + '\n'
+    for keys,values in environ.items():
+    	output += str(keys) + '\n'
+    	output += str(values) + '\n'
 
     connectToDB()
 
