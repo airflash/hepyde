@@ -1,7 +1,7 @@
 import json
 import os
 import psycopg2
-import urllib.parse as urlparse
+from urllib import parse
 
 def connectToDB():
 	parse.uses_netloc.append("postgres")
@@ -16,8 +16,7 @@ def getDefaultOutput():
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def login(query):
-	params = query.split("&")
-	params = urlparse.parse_qs(query)
+	params = parse.parse_qs(query)
 
 	connectToDB()
 
