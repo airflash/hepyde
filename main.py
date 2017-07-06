@@ -13,17 +13,20 @@ def getOutput():
 	reply = {}
 	reply['pgURL'] = os.environ["DATABASE_URL"]
 	reply['status'] = 'ok'
-	return json.dumps(reply)
+	replu['path'] = environ['PATH_INFO']
+	return json.dumps(reply, sort_keys=True, indent=4)
 
 def application(environ, start_response):
     status = '200 OK'
     output = getOutput()
-
-    output += "\n"
+    # output += "\n"
     
-    for keys,values in environ.items():
-    	output += str(keys) + '\n'
-    	output += str(values) + '\n'
+
+    
+
+    # for keys,values in environ.items():
+    # 	output += str(keys) + '\n'
+    # 	output += str(values) + '\n'
 
     connectToDB()
 
