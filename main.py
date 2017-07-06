@@ -33,9 +33,9 @@ def application(environ, start_response):
 	
 	if (path == '/login'):
 		output = login()
-	elif (path == '/spin')
+	elif (path == '/spin'):
 		output = spin()   
-	else 
+	else :
 		output = getDefaultOutput()
 
 	# connectToDB()
