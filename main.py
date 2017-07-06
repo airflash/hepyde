@@ -2,6 +2,10 @@ import json
 import os
 import psycopg2
 from urllib import parse
+from generator import getRandomCombination
+from estimator import calculateWin
+from estimator import getPaytable
+from estimator import getLines
 
 def connectToDB():
 	parse.uses_netloc.append("postgres")
@@ -22,12 +26,16 @@ def login(query):
 	reply['status'] = 'ok'
 	reply['method'] = 'login'
 	reply['userId'] = params['id']
+	reply['paytable'] = getPaytable()
+	reply['lines'] = getLines()
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def spin():
 	reply = {}
 	reply['status'] = 'ok'
 	reply['method'] = 'spin'
+	reply['reels'] = getRandomCombination()
+	reply['win'] = calculateWin(reply['reels'])
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def route(environ):
