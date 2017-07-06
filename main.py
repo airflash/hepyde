@@ -6,12 +6,10 @@ from urllib import parse
 def connectToDB():
 	parse.uses_netloc.append("postgres")
 	url = parse.urlparse(os.environ["DATABASE_URL"])
-
 	conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host=url.hostname,port=url.port)
 
 def getDefaultOutput():
 	reply = {}
-	# reply['pgURL'] = os.environ["DATABASE_URL"]
 	reply['status'] = 'ok'
 	return json.dumps(reply, sort_keys=True, indent=4)
 
@@ -19,9 +17,6 @@ def login(query):
 	params = parse.parse_qs(query)
 
 	connectToDB()
-
-	#TODO: если юзер есть в базе - вернуть токен сессии
-	#TODO: если нет в базе - записать туда его
 	
 	reply = {}
 	reply['status'] = 'ok'
@@ -51,9 +46,9 @@ def application(environ, start_response):
 
 	output = route(environ)	
 
-	for keys,values in environ.items():
-		output += str(keys) + '\n'
-		output += str(values) + '\n'
+	# for keys,values in environ.items():
+	# 	output += str(keys) + '\n'
+	# 	output += str(values) + '\n'
 
 	response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
 	start_response(status, response_headers)
