@@ -25,7 +25,7 @@ def application(environ, start_response):
     # 	output += str(keys) + '\n'
     # 	output += str(values) + '\n'
 
-	connectToDB()
+	# connectToDB()
 
     #output += json.dumps(environ)
 
