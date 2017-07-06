@@ -7,13 +7,7 @@ def connectToDB():
 	parse.uses_netloc.append("postgres")
 	url = parse.urlparse(os.environ["DATABASE_URL"])
 
-	# conn = psycopg2.connect(
- #    	database=url.path[1:],
- #    	user=url.username,
- #    	password=url.password,
- #    	host=url.hostname,
- #    	port=url.port
-	# )
+	conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host=url.hostname,port=url.port)
 
 def application(environ, start_response):
     status = '200 OK'
@@ -36,4 +30,3 @@ def application(environ, start_response):
     
     # можно использовать [data.encode('utf-8')]. 
     # также The specs says that you can return an itterator here. So either ["OK"] or yield "OK" :)
-
