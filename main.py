@@ -9,31 +9,46 @@ def connectToDB():
 
 	conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host=url.hostname,port=url.port)
 
-def getOutput():
+def getDefaultOutput():
 	reply = {}
-	reply['pgURL'] = os.environ["DATABASE_URL"]
+	# reply['pgURL'] = os.environ["DATABASE_URL"]
 	reply['status'] = 'ok'
-	replu['path'] = environ['PATH_INFO']
+	return json.dumps(reply, sort_keys=True, indent=4)
+
+def login():
+	reply = {}
+	reply['status'] = 'ok'
+	reply['method'] = 'login'
+	return json.dumps(reply, sort_keys=True, indent=4)
+
+def spin():
+	reply = {}
+	reply['status'] = 'ok'
+	reply['method'] = 'spin'
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def application(environ, start_response):
     status = '200 OK'
-    output = getOutput()
-    # output += "\n"
+   
+	path = environ['PATH_INFO']
     
+    if (path == '/login'):
+		output = login()
+    else if (path == '/spin')
+		output = spin()   
+	else 
+		output = getDefaultOutput()
 
-    
 
     # for keys,values in environ.items():
     # 	output += str(keys) + '\n'
     # 	output += str(values) + '\n'
 
-    connectToDB()
+    # connectToDB()
 
     #output += json.dumps(environ)
 
-    response_headers = [('Content-type', 'text/plain'),
-                        ('Content-Length', str(len(output)))]
+    response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
     start_response(status, response_headers)
     return [bytes(output, 'utf-8')]
     
