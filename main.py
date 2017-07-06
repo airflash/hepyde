@@ -1,7 +1,7 @@
 import json
 import os
 import psycopg2
-from urllib import parse
+import urllib.parse as urlparse
 
 def connectToDB():
 	parse.uses_netloc.append("postgres")
@@ -15,7 +15,9 @@ def getDefaultOutput():
 	reply['status'] = 'ok'
 	return json.dumps(reply, sort_keys=True, indent=4)
 
-def login():
+def login(query):
+	params = query.split("&")
+	params = urlparse.parse_qs(query)
 
 	connectToDB()
 
@@ -25,6 +27,7 @@ def login():
 	reply = {}
 	reply['status'] = 'ok'
 	reply['method'] = 'login'
+	reply['userId'] = params['id']
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def spin():
@@ -35,9 +38,10 @@ def spin():
 
 def route(environ):
 	path = environ['PATH_INFO']
+	query = environ['QUERY_STRING']
 
 	if (path == '/login'):
-		return login()
+		return login(query)
 	elif (path == '/spin'):
 		return spin()   
 	else :
@@ -45,7 +49,7 @@ def route(environ):
 
 def application(environ, start_response):
 	status = '200 OK'
-		
+
 	output = route(environ)	
 
 	for keys,values in environ.items():
