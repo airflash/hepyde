@@ -35,6 +35,7 @@ def spin():
 	reply['status'] = 'ok'
 	reply['method'] = 'spin'
 	reply['reels'] = getRandomCombination()
+	#reply['reels'] = [[11, 0, 1], [10, 8, 2], [9, 0, 3], [0, 2, 1], [8, 11, 3]]
 	reply['win'] = calculateWin(reply['reels'])
 	return json.dumps(reply, sort_keys=True, indent=4)
 
