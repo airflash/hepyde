@@ -1,7 +1,7 @@
 import json
 import os
 import psycopg2
-import urlparse
+from urllib import parse
 
 # def connectToDB():
 # 	urlparse.uses_netloc.append("postgres")
