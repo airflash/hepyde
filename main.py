@@ -11,8 +11,8 @@ def connectToDB():
 
 def getOutput():
 	reply = {}
-	reply.pgURL = os.environ["DATABASE_URL"]
-	reply.status = 'ok'
+	reply['pgURL'] = os.environ["DATABASE_URL"]
+	reply['status'] = 'ok'
 	return json.dumps(reply)
 
     
