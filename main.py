@@ -28,29 +28,23 @@ def spin():
 	return json.dumps(reply, sort_keys=True, indent=4)
 
 def application(environ, start_response):
-    status = '200 OK'
-   
+	status = '200 OK'
 	path = environ['PATH_INFO']
-    
-    if (path == '/login'):
+	
+	if (path == '/login'):
 		output = login()
-    else if (path == '/spin')
+	else if (path == '/spin')
 		output = spin()   
 	else 
 		output = getDefaultOutput()
 
+	# connectToDB()
 
-    # for keys,values in environ.items():
-    # 	output += str(keys) + '\n'
-    # 	output += str(values) + '\n'
+	#output += json.dumps(environ)
 
-    # connectToDB()
+	response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
+	start_response(status, response_headers)
+	return [bytes(output, 'utf-8')]
 
-    #output += json.dumps(environ)
-
-    response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
-    start_response(status, response_headers)
-    return [bytes(output, 'utf-8')]
-    
-    # можно использовать [data.encode('utf-8')]. 
-    # также The specs says that you can return an itterator here. So either ["OK"] or yield "OK" :)
+	# можно использовать [data.encode('utf-8')]. 
+	# также The specs says that you can return an itterator here. So either ["OK"] or yield "OK" :)
