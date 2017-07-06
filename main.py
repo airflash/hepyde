@@ -8,7 +8,7 @@ def application(environ, start_response):
     # 	output += str(keys) + '\n'
     # 	output += str(values) + '\n'
 
-    output += json.encode(environ)
+    output += json.dumps(environ)
 
     response_headers = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]
