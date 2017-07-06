@@ -4,7 +4,7 @@ def application(environ, start_response):
     status = '200 OK'
     output = 'Hello World!\n\n'
     
-    for keys,values in envirin.items():
+    for keys,values in environ.items():
     	output += keys + '\n'
     	output += values + '\n'
 
